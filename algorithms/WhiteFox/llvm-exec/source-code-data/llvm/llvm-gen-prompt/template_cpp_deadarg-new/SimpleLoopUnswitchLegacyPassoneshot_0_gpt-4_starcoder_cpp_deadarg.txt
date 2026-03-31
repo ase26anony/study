@@ -1,0 +1,22 @@
+The C++ code should contain the following pattern:
+
+```cpp
+bool condition = ANY_BOOLEAN_VALUE; // a global boolean variable
+
+void foo() {
+    // some code here
+}
+
+int main() {
+    for (int i = 0; i < ANY_POSITIVE_INTEGER; ++i) {
+        if (condition) {
+            foo();
+        } else {
+            // some other code here
+        }
+    }
+    return 0;
+}
+```
+
+This pattern characterizes scenarios where within the `main` function, there exists a loop with a condition that is invariant across the loop iterations. The condition is a global boolean variable that does not change within the loop. The loop contains an `if-else` statement that executes different code based on the condition. The function `foo` is called when the condition is true. The loop must have a positive integer as the loop count, and the `main` function must return a value related to this optimization for further comparison.

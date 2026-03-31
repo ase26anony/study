@@ -1,0 +1,13 @@
+The C++ code should contain the following pattern:
+```cpp
+// define a function which is not used
+void unused_func() {
+    RANDOM_CODE; // Do something here, but this function is never called
+}
+
+int main() {
+    RANDOM_CODE;  // declare some variables
+    return ANY_VALUE; // return any value
+}
+```
+This pattern characterizes scenarios where within the `main` function, there is no call to `unused_func`. The `unused_func` is a function that is defined but never used in the program. The `main` function must return a value related to this optimization for further comparison.

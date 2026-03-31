@@ -1,0 +1,172 @@
+{
+    "sfdp=0": {
+        "hints": [
+            {
+                "type": "pattern",
+                "codes": [
+                    "source-code-data/pytorch/inductor-sfdp/sfdp=0.py"
+                ]
+            }
+        ]
+    },
+    "sfdp=1": {
+        "hints": [
+            {
+                "type": "pattern",
+                "codes": [
+                    "source-code-data/pytorch/inductor-sfdp/sfdp=1.py"
+                ]
+            }
+        ]
+    },
+    "sfdp=2": {
+        "hints": [
+            {
+                "type": "pattern",
+                "codes": [
+                    "source-code-data/pytorch/inductor-sfdp/sfdp=2.py"
+                ]
+            }
+        ]
+    },
+    "sfdp=3": {
+        "hints": [
+            {
+                "type": "pattern",
+                "codes": [
+                    "source-code-data/pytorch/inductor-sfdp/sfdp=3.py"
+                ]
+            }
+        ]
+    },
+    "sfdp=4": {
+        "hints": [
+            {
+                "type": "pattern",
+                "codes": [
+                    "source-code-data/pytorch/inductor-sfdp/sfdp=4.py"
+                ]
+            }
+        ]
+    },
+    "sfdp=5": {
+        "hints": [
+            {
+                "type": "pattern",
+                "codes": [
+                    "source-code-data/pytorch/inductor-sfdp/sfdp=5.py"
+                ]
+            }
+        ]
+    },
+    "sfdp=6": {
+        "hints": [
+            {
+                "type": "pattern",
+                "codes": [
+                    "source-code-data/pytorch/inductor-sfdp/sfdp=6.py"
+                ]
+            }
+        ]
+    },
+    "sfdp=7": {
+        "hints": [
+            {
+                "type": "pattern",
+                "codes": [
+                    "source-code-data/pytorch/inductor-sfdp/sfdp=7.py"
+                ]
+            }
+        ]
+    },
+    "sfdp=8": {
+        "hints": [
+            {
+                "type": "pattern",
+                "codes": [
+                    "source-code-data/pytorch/inductor-sfdp/sfdp=8.py"
+                ]
+            }
+        ]
+    },
+    "sfdp=9": {
+        "hints": [
+            {
+                "type": "pattern",
+                "codes": [
+                    "source-code-data/pytorch/inductor-sfdp/sfdp=9.py"
+                ]
+            }
+        ]
+    },
+    "sfdp=10": {
+        "hints": [
+            {
+                "type": "pattern",
+                "codes": [
+                    "source-code-data/pytorch/inductor-sfdp/sfdp=10.py"
+                ]
+            }
+        ]
+    },
+    "sfdp=11": {
+        "hints": [
+            {
+                "type": "pattern",
+                "codes": [
+                    "source-code-data/pytorch/inductor-sfdp/sfdp=11.py"
+                ]
+            }
+        ]
+    },
+    "sfdp=12": {
+        "hints": [
+            {
+                "type": "pattern",
+                "codes": [
+                    "source-code-data/pytorch/inductor-sfdp/sfdp=12.py"
+                ]
+            }
+        ]
+    },
+    "sfdp=13": {
+        "hints": [
+            {
+                "type": "pattern",
+                "codes": [
+                    "source-code-data/pytorch/inductor-sfdp/sfdp=13.py"
+                ]
+            }
+        ]
+    },
+    "sfdp=14": {
+        "hints": [
+            {
+                "type": "pattern",
+                "codes": [
+                    "source-code-data/pytorch/inductor-sfdp/sfdp=14.py"
+                ]
+            }
+        ]
+    },
+    "sfdp=15": {
+        "hints": [
+            {
+                "type": "pattern",
+                "codes": [
+                    "source-code-data/pytorch/inductor-sfdp/sfdp=15.py"
+                ]
+            }
+        ]
+    },
+    "sfdp=16": {
+        "hints": [
+            {
+                "type": "pattern",
+                "codes": [
+                    "source-code-data/pytorch/inductor-sfdp/sfdp=16.py"
+                ]
+            }
+        ]
+    }
+}

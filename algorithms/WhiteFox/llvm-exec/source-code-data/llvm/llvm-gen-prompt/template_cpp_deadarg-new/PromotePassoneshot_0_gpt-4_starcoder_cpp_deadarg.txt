@@ -1,0 +1,15 @@
+The C++ code should contain the following pattern:
+
+```cpp
+int main() {
+    int x = ANY_VALUE; // declare variable x
+    int y = ANY_VALUE; // declare variable y
+    int *p = new int; // allocate memory for an integer
+    *p = x OPERATOR y; // assign the result of an operation on x and y to the memory pointed by p
+    int result = *p; // retrieve the value from the memory pointed by p
+    delete p; // deallocate the memory
+    return result;
+}
+```
+
+This pattern characterizes scenarios where within the `main` function, there exists an allocation of memory (`new int`), an assignment of a value to this memory (`*p = x OPERATOR y;`), and a retrieval of this value (`int result = *p;`). The `OPERATOR` can be any valid C++ operator, such as `+`, `-`, `*`, `/`, etc. The `ANY_VALUE` can be any valid C++ value. The `main` function must return a value related to this optimization for further comparison.

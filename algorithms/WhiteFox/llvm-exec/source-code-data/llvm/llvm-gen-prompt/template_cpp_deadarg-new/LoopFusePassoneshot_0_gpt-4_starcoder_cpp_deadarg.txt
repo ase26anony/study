@@ -1,0 +1,11 @@
+The C++ code should contain the following pattern:
+```cpp
+int main() {
+    int array[100];
+    for (int i = 0; i < 100; ++i) {
+        array[i] = i;
+    }
+    return 0;
+}
+```
+This pattern characterizes scenarios where within the `main` function, there exists a loop that iterates over an array and performs some operation on each element. The loop does not have a preheader block, which is a basic block that has only one successor, the loop header, and all the other predecessors of the loop header, if any, are outside the loop. The loop also does not have multiple exits going to different blocks. The `main` function must return a value related to this optimization for further comparison.

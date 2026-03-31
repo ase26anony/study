@@ -1,0 +1,21 @@
+The C++ code should contain the following pattern:
+
+```cpp
+// define a function with a loop
+void loop_func() {
+    for (int i = 0; i < ANY_VALUE; ++i) {
+        RANDOM_CODE; // Do something here within the loop
+    }
+}
+
+int main() {
+    RANDOM_CODE;  // declare some variables
+    // invoke the function with a loop
+    loop_func();
+    return 0;
+}
+```
+
+This pattern characterizes scenarios where within the `main` function, there exists a call to `loop_func`. The `loop_func` contains a loop that iterates for a certain number of times (`ANY_VALUE`). Inside the loop, it executes some random code (`RANDOM_CODE`). The `main` function must invoke `loop_func` and return a value related to this optimization for further comparison. 
+
+The loop in `loop_func` should be simple enough to be extracted by the `LoopExtractorPass`. The loop should not contain any complex control flow such as `break`, `continue`, or `return` statements. The loop should not contain any function calls that may throw exceptions. The loop should not contain any variables that are defined outside the loop and modified inside the loop. The loop should not contain any variables that are defined inside the loop and used outside the loop.

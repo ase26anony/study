@@ -1,0 +1,24 @@
+The C++ code should contain the following pattern:
+
+```cpp
+int main() {
+    int x = ANY_VALUE; // declare variable x
+    int y = ANY_VALUE; // declare variable y
+    int z = ANY_VALUE; // declare variable z
+
+    while (CONDITION) { // a loop that depends on a condition
+        if (ANOTHER_CONDITION) { // a condition inside the loop
+            x = y + z; // an operation that modifies one of the variables
+        }
+        else {
+            x = y - z; // another operation that modifies one of the variables
+        }
+    }
+
+    return x; // return the modified variable
+}
+```
+
+This pattern characterizes scenarios where within the `main` function, there exists a loop that modifies a variable `x` based on some conditions. The variable `x` is modified differently based on whether `ANOTHER_CONDITION` is true or false. The `main` function must return a value related to this optimization for further comparison. 
+
+The loop must have at least one exit block, and the variable `x` must be used after the loop. The `LCSSAPass` is triggered when there are variables that are defined in the loop and used outside the loop. The `LCSSAPass` will insert PHI nodes at the beginning of the exit blocks to ensure that each variable has a single, loop-invariant definition.
