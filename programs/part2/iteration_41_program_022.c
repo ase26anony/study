@@ -1,0 +1,9 @@
+Device (e.g., GPU)
+├── Team 0
+│   ├── Thread 0: j = 0..k, i = vectorized (SIMD)
+│   ├── Thread 1: j = 0..k, i = vectorized (SIMD)
+│   └── ...
+├── Team 1
+│   ├── Thread 0: j = k+1..m, i = vectorized (SIMD)
+│   └── ...
+└── ...

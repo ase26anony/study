@@ -1,0 +1,11 @@
+/* Header file declaring the TLS variable with various attributes */
+
+#ifdef _WIN32
+#define DLL_IMPORT __declspec(dllimport)
+#else
+#define DLL_IMPORT
+#endif
+
+/* External declaration with weak linkage, visibility, and dllimport */
+extern DLL_IMPORT __thread int emulated_tls_var 
+    __attribute__((weak, visibility("hidden")));

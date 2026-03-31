@@ -1,0 +1,3 @@
+**Compilation recommendations for coverage:**
+
+1. **For GCC auto-inc-dec pass analysis:**

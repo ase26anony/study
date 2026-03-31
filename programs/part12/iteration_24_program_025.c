@@ -1,0 +1,5 @@
+## Compilation Instructions
+
+To generate the tree dumps that should trigger the uncovered pretty-printer lines:
+
+### Option 1: Basic tree dumps (recommended)

@@ -1,0 +1,2 @@
+- `lvalue_p(exp)` checks if `exp` is an lvalue
+- `xval` becomes `true` if `exp` is NOT an lvalue (meaning it's an xvalue or prvalue)

@@ -1,0 +1,1 @@
+However, looking more closely at the uncovered code, I believe this is from the `fixed_value::overflow_p_for_bound` or similar function. Here's a more targeted version that directly exercises the specific comparison:

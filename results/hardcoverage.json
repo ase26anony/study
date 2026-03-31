@@ -1,0 +1,18 @@
+{
+    "gcc":{
+        "Csmith": 8.38,
+        "DST": 9.06,
+        "Creal": 12.39,
+        "Fuzz4All": 18.11,
+        "WhiteFox": 27.43,
+        "LegoFuzz": 24.67 
+    },
+    "llvm":{
+        "Csmith": 10.55,
+        "DST": 11.56,
+        "Creal": 14.02,
+        "Fuzz4All": 19.96,
+        "WhiteFox": 29.65,
+        "LegoFuzz": 26.86
+    }
+}

@@ -1,0 +1,9 @@
+#include <stdio.h>
+
+int main() {
+    printf("Hello, coverage!\n");
+    for (int i = 0; i < 3; i++) {
+        printf("Iteration %d\n", i);
+    }
+    return 0;
+}

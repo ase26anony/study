@@ -1,0 +1,52 @@
+/* test-basic-structs.h - Cover TYPE_STRUCT, TYPE_SCALAR, TYPE_ARRAY, TYPE_POINTER */
+
+#ifndef TEST_BASIC_STRUCTS_H
+#define TEST_BASIC_STRUCTS_H
+
+#include "config.h"
+#include "system.h"
+
+/* Forward declaration for TYPE_UNDEFINED */
+struct opaque_type;  /* TYPE_UNDEFINED - incomplete type */
+
+/* Enum for TYPE_SCALAR */
+typedef enum color {
+    RED,
+    GREEN,
+    BLUE
+} color_t;
+
+/* Basic structure with multiple scalar types - TYPE_STRUCT */
+struct GTY(()) basic_struct {
+    int int_field;              /* TYPE_SCALAR */
+    long long_field;            /* TYPE_SCALAR */
+    double double_field;        /* TYPE_SCALAR */
+    float float_field;          /* TYPE_SCALAR */
+    char char_field;            /* TYPE_SCALAR */
+    bool bool_field;            /* TYPE_SCALAR (C++) */
+    color_t enum_field;         /* TYPE_SCALAR */
+    
+    /* TYPE_ARRAY */
+    int int_array[10];          /* Fixed-size array */
+    char char_array[32];        /* Another array */
+    
+    /* TYPE_POINTER */
+    struct basic_struct *next;  /* Pointer to same type */
+    struct opaque_type *opaque; /* Pointer to undefined type */
+    void *generic_ptr;          /* void pointer */
+    
+    /* TYPE_STRING */
+    const char * GTY((skip)) name;  /* String field */
+    char *dynamic_string;       /* Another string */
+};
+
+/* Array of structures - TYPE_ARRAY in global context */
+extern struct basic_struct GTY(()) global_struct_array[5];
+
+/* Linked list using the structure */
+extern struct basic_struct GTY(()) *global_list_head;
+
+/* Pointer to array - complex TYPE_POINTER */
+typedef int (*int_array_ptr_t)[10];
+
+#endif /* TEST_BASIC_STRUCTS_H */

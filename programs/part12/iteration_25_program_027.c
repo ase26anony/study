@@ -1,0 +1,5 @@
+**Compilation and Usage Instructions:**
+
+1. **Save the program** as `ddg_test.cpp`
+
+2. **Compile with DDG-enabling flags**:

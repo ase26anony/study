@@ -1,0 +1,9 @@
+Device (e.g., GPU)
+├── Team 0 → j = 0..chunk_size-1
+│   ├── Thread 0 → SIMD vector of i values
+│   ├── Thread 1 → SIMD vector of i values
+│   └── ...
+├── Team 1 → j = chunk_size..2*chunk_size-1
+│   ├── Thread 0 → SIMD vector of i values
+│   └── ...
+└── ...

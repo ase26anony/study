@@ -1,0 +1,9 @@
+Device (GPU):
+├── Team 0 (Thread Block 0)
+│   ├── Thread 0: j=0, i=0..15 (SIMD)
+│   ├── Thread 1: j=0, i=16..31 (SIMD)
+│   └── ...
+├── Team 1 (Thread Block 1)
+│   ├── Thread 0: j=1, i=0..15 (SIMD)
+│   └── ...
+└── ...

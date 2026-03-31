@@ -1,0 +1,9 @@
+Gang 0 (i=0)     Gang 1 (i=1)     ...     Gang N-1 (i=N-1)
+├── Worker 0      ├── Worker 0            ├── Worker 0
+│   ├── Vector 0  │   ├── Vector 0        │   ├── Vector 0
+│   ├── Vector 1  │   ├── Vector 1        │   ├── Vector 1
+│   └── ...       │   └── ...             │   └── ...
+├── Worker 1      ├── Worker 1            ├── Worker 1
+│   ├── Vector 0  │   ├── Vector 0        │   ├── Vector 0
+│   └── ...       │   └── ...             │   └── ...
+└── ...           └── ...                 └── ...

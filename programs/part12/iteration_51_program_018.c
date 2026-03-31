@@ -1,0 +1,1 @@
+For the default case (illegal partition type), you would need to directly call the internal function if it's exposed. Here's a separate test that attempts to trigger the default case by using an invalid combination or directly calling the function if available:

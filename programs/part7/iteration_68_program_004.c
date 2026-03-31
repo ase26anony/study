@@ -1,0 +1,25 @@
+This is a simple C program that defines the `main` function, which is the entry point of every C program. Here's a breakdown:
+
+## What it does:
+1. **`int main()`** - Declares the main function that returns an integer
+2. **`return 0;`** - Returns the value 0 to the operating system
+3. **`}`** - Closes the function definition
+
+## Key points:
+- **Return value 0** conventionally indicates successful execution
+- The program does nothing else - it immediately exits with success status
+- This is often used as a minimal "hello world" equivalent or template
+
+## Compilation and execution:
+```bash
+# Compile
+gcc -o program program.c
+
+# Run
+./program
+
+# Check exit status
+echo $?  # Will output 0
+```
+
+This is the simplest valid C program that complies with the C standard.

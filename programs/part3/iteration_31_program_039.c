@@ -1,0 +1,105 @@
+/* test-doloop-pattern.c
+ * Target compilation: gcc -O2 -march=powerpc64 -fdump-rtl-doloop -S test-doloop-pattern.c
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+
+volatile int global_sum = 0;  /* volatile to prevent complete optimization */
+
+/* Variant 1: do-while with pre-decrement */
+int test_do_while_predec(unsigned int n) {
+    int local_sum = 0;
+    unsigned int counter = n;
+    
+    do {
+        local_sum += (counter & 1);  /* Simple non-empty body */
+        global_sum++;
+    } while (--counter != 0);
+    
+    return local_sum;
+}
+
+/* Variant 2: while with post-decrement */
+int test_while_postdec(int n) {
+    int local_sum = 0;
+    int counter = n;
+    
+    while (counter-- != 0) {
+        local_sum += (counter & 3);  /* Different simple operation */
+        global_sum += 2;
+    }
+    
+    return local_sum;
+}
+
+/* Variant 3: nested loops - inner loop uses decrement pattern */
+int test_nested_loops(unsigned int outer, unsigned int inner) {
+    int total = 0;
+    unsigned int i, j;
+    
+    for (i = 0; i < outer; i++) {
+        j = inner;
+        do {
+            total += (i * j);
+            global_sum += 3;
+        } while (--j != 0);
+    }
+    
+    return total;
+}
+
+/* Variant 4: mixed unsigned/signed counters */
+int test_mixed_types(int n) {
+    int sum = 0;
+    unsigned int counter = (unsigned int)n;
+    
+    /* Force the pattern with explicit comparison */
+    while (counter != 0) {
+        sum += (int)counter;
+        global_sum += 4;
+        counter--;  /* Decrement after use */
+    }
+    
+    return sum;
+}
+
+/* Variant 5: simple countdown loop */
+int test_countdown(unsigned int n) {
+    int result = 0;
+    
+    /* This should generate the cleanest pattern */
+    unsigned int count = n;
+    do {
+        result ^= count;  /* Simple non-empty body */
+        global_sum += 5;
+    } while (--count != 0);
+    
+    return result;
+}
+
+int main(int argc, char *argv[]) {
+    int base_iterations = 100;
+    
+    /* Use command line argument for variable but bounded iteration count */
+    if (argc > 1) {
+        base_iterations = atoi(argv[1]);
+        if (base_iterations <= 0) base_iterations = 100;
+        if (base_iterations > 10000) base_iterations = 10000; /* Reasonable bound */
+    }
+    
+    int total = 0;
+    
+    /* Execute all test variants */
+    total += test_do_while_predec(base_iterations);
+    total += test_while_postdec(base_iterations);
+    total += test_nested_loops(5, base_iterations / 5);
+    total += test_mixed_types(base_iterations);
+    total += test_countdown(base_iterations);
+    
+    /* Print results to ensure execution */
+    printf("Total: %d, Global: %d\n", total, global_sum);
+    
+    /* Return deterministic result for verification */
+    return (total > 0) ? 0 : 1;
+}

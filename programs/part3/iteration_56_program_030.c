@@ -1,0 +1,7 @@
+Both constructors are marked `explicit`, which means:
+1. The converting constructor from `int` cannot be used for implicit conversions
+2. The copy constructor cannot be used for implicit copy operations
+
+### Usage Examples
+
+**1. Direct Initialization (Valid)**

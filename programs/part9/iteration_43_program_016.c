@@ -1,0 +1,268 @@
+#include <immintrin.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdint.h>
+#include <string.h>
+
+// Function to test 32-bit integer blend (E_V16SImode)
+__attribute__((noinline))
+uint64_t test_blend_epi32(const int32_t* src1, const int32_t* src2, int32_t* dst) {
+    __m512i v1 = _mm512_loadu_si512((const __m512i*)src1);
+    __m512i v2 = _mm512_loadu_si512((const __m512i*)src2);
+    
+    // Create dynamic mask using comparison
+    __m512i cmp_val = _mm512_set1_epi32(100);
+    __mmask16 mask = _mm512_cmpgt_epi32_mask(v1, cmp_val);
+    
+    // Perform blend
+    __m512i result = _mm512_mask_blend_epi32(mask, v1, v2);
+    
+    // Additional arithmetic to create more complex context
+    __m512i add_result = _mm512_add_epi32(result, _mm512_set1_epi32(1));
+    __m512i final = _mm512_mullo_epi32(add_result, _mm512_set1_epi32(3));
+    
+    _mm512_storeu_si512((__m512i*)dst, final);
+    
+    // Compute checksum
+    uint64_t sum = 0;
+    for (int i = 0; i < 16; i++) {
+        sum += dst[i];
+    }
+    return sum;
+}
+
+// Function to test 64-bit integer blend (E_V8DImode)
+__attribute__((noinline))
+uint64_t test_blend_epi64(const int64_t* src1, const int64_t* src2, int64_t* dst) {
+    __m512i v1 = _mm512_loadu_si512((const __m512i*)src1);
+    __m512i v2 = _mm512_loadu_si512((const __m512i*)src2);
+    
+    // Dynamic mask from comparison
+    __m512i cmp_val = _mm512_set1_epi64(500);
+    __mmask8 mask = _mm512_cmpgt_epi64_mask(v1, cmp_val);
+    
+    // Blend operation
+    __m512i result = _mm512_mask_blend_epi64(mask, v1, v2);
+    
+    // Additional arithmetic
+    __m512i shifted = _mm512_slli_epi64(result, 1);
+    __m512i final = _mm512_add_epi64(shifted, _mm512_set1_epi64(1));
+    
+    _mm512_storeu_si512((__m512i*)dst, final);
+    
+    uint64_t sum = 0;
+    for (int i = 0; i < 8; i++) {
+        sum += dst[i];
+    }
+    return sum;
+}
+
+// Function to test single-precision blend (E_V16SFmode)
+__attribute__((noinline))
+float test_blend_ps(const float* src1, const float* src2, float* dst) {
+    __m512 v1 = _mm512_loadu_ps(src1);
+    __m512 v2 = _mm512_loadu_ps(src2);
+    
+    // Create dynamic mask
+    __m512 cmp_val = _mm512_set1_ps(0.5f);
+    __mmask16 mask = _mm512_cmp_ps_mask(v1, cmp_val, _CMP_GT_OQ);
+    
+    // Blend operation
+    __m512 result = _mm512_mask_blend_ps(mask, v1, v2);
+    
+    // Additional arithmetic
+    __m512 scaled = _mm512_mul_ps(result, _mm512_set1_ps(2.0f));
+    __m512 final = _mm512_add_ps(scaled, _mm512_set1_ps(1.0f));
+    
+    _mm512_storeu_ps(dst, final);
+    
+    // Compute sum
+    float sum = 0;
+    for (int i = 0; i < 16; i++) {
+        sum += dst[i];
+    }
+    return sum;
+}
+
+// Function to test double-precision blend (E_V8DFmode)
+__attribute__((noinline))
+double test_blend_pd(const double* src1, const double* src2, double* dst) {
+    __m512d v1 = _mm512_loadu_pd(src1);
+    __m512d v2 = _mm512_loadu_pd(src2);
+    
+    // Dynamic mask
+    __m512d cmp_val = _mm512_set1_pd(0.25);
+    __mmask8 mask = _mm512_cmp_pd_mask(v1, cmp_val, _CMP_GT_OQ);
+    
+    // Blend operation
+    __m512d result = _mm512_mask_blend_pd(mask, v1, v2);
+    
+    // Additional arithmetic
+    __m512d squared = _mm512_mul_pd(result, result);
+    __m512d final = _mm512_add_pd(squared, _mm512_set1_pd(1.0));
+    
+    _mm512_storeu_pd(dst, final);
+    
+    double sum = 0;
+    for (int i = 0; i < 8; i++) {
+        sum += dst[i];
+    }
+    return sum;
+}
+
+#ifdef __AVX512BW__
+// Function to test 16-bit integer blend (E_V32HImode)
+__attribute__((noinline))
+uint32_t test_blend_epi16(const int16_t* src1, const int16_t* src2, int16_t* dst) {
+    __m512i v1 = _mm512_loadu_si512((const __m512i*)src1);
+    __m512i v2 = _mm512_loadu_si512((const __m512i*)src2);
+    
+    // Dynamic mask
+    __m512i cmp_val = _mm512_set1_epi16(0);
+    __mmask32 mask = _mm512_cmpgt_epi16_mask(v1, cmp_val);
+    
+    // Blend operation
+    __m512i result = _mm512_mask_blend_epi16(mask, v1, v2);
+    
+    // Additional arithmetic
+    __m512i shifted = _mm512_slli_epi16(result, 2);
+    __m512i final = _mm512_add_epi16(shifted, _mm512_set1_epi16(1));
+    
+    _mm512_storeu_si512((__m512i*)dst, final);
+    
+    uint32_t sum = 0;
+    for (int i = 0; i < 32; i++) {
+        sum += dst[i];
+    }
+    return sum;
+}
+
+// Function to test 8-bit integer blend (E_V64QImode)
+__attribute__((noinline))
+uint32_t test_blend_epi8(const int8_t* src1, const int8_t* src2, int8_t* dst) {
+    __m512i v1 = _mm512_loadu_si512((const __m512i*)src1);
+    __m512i v2 = _mm512_loadu_si512((const __m512i*)src2);
+    
+    // Dynamic mask
+    __m512i cmp_val = _mm512_set1_epi8(50);
+    __mmask64 mask = _mm512_cmpgt_epi8_mask(v1, cmp_val);
+    
+    // Blend operation
+    __m512i result = _mm512_mask_blend_epi8(mask, v1, v2);
+    
+    // Additional arithmetic
+    __m512i scaled = _mm512_add_epi8(result, _mm512_set1_epi8(10));
+    __m512i final = _mm512_and_si512(scaled, _mm512_set1_epi8(0x7F));
+    
+    _mm512_storeu_si512((__m512i*)dst, final);
+    
+    uint32_t sum = 0;
+    for (int i = 0; i < 64; i++) {
+        sum += dst[i];
+    }
+    return sum;
+}
+#endif
+
+#ifdef __AVX512FP16__
+// Function to test half-precision blend (E_V32HFmode)
+__attribute__((noinline))
+float test_blend_ph(const _Float16* src1, const _Float16* src2, _Float16* dst) {
+    __m512h v1 = _mm512_loadu_ph(src1);
+    __m512h v2 = _mm512_loadu_ph(src2);
+    
+    // Dynamic mask
+    __m512h cmp_val = _mm512_set1_ph(0.0f);
+    __mmask32 mask = _mm512_cmp_ph_mask(v1, cmp_val, _CMP_GT_OQ);
+    
+    // Blend operation
+    __m512h result = _mm512_mask_blend_ph(mask, v1, v2);
+    
+    // Additional arithmetic
+    __m512h scaled = _mm512_mul_ph(result, _mm512_set1_ph(2.0f));
+    __m512h final = _mm512_add_ph(scaled, _mm512_set1_ph(1.0f));
+    
+    _mm512_storeu_ph(dst, final);
+    
+    // Compute sum (convert to float for accumulation)
+    float sum = 0;
+    for (int i = 0; i < 32; i++) {
+        sum += dst[i];
+    }
+    return sum;
+}
+#endif
+
+int main() {
+    srand(42);
+    
+    // Initialize data arrays
+    int32_t src1_epi32[16], src2_epi32[16], dst_epi32[16];
+    int64_t src1_epi64[8], src2_epi64[8], dst_epi64[8];
+    float src1_ps[16], src2_ps[16], dst_ps[16];
+    double src1_pd[8], src2_pd[8], dst_pd[8];
+    
+    // Fill arrays with random data
+    for (int i = 0; i < 16; i++) {
+        src1_epi32[i] = rand() % 200;
+        src2_epi32[i] = rand() % 200;
+        src1_ps[i] = (float)rand() / RAND_MAX;
+        src2_ps[i] = (float)rand() / RAND_MAX;
+    }
+    
+    for (int i = 0; i < 8; i++) {
+        src1_epi64[i] = rand() % 1000;
+        src2_epi64[i] = rand() % 1000;
+        src1_pd[i] = (double)rand() / RAND_MAX;
+        src2_pd[i] = (double)rand() / RAND_MAX;
+    }
+    
+    // Execute blend tests
+    uint64_t sum_epi32 = test_blend_epi32(src1_epi32, src2_epi32, dst_epi32);
+    uint64_t sum_epi64 = test_blend_epi64(src1_epi64, src2_epi64, dst_epi64);
+    float sum_ps = test_blend_ps(src1_ps, src2_ps, dst_ps);
+    double sum_pd = test_blend_pd(src1_pd, src2_pd, dst_pd);
+    
+    printf("32-bit integer blend checksum: %lu\n", sum_epi32);
+    printf("64-bit integer blend checksum: %lu\n", sum_epi64);
+    printf("Single-precision blend checksum: %f\n", sum_ps);
+    printf("Double-precision blend checksum: %f\n", sum_pd);
+    
+#ifdef __AVX512BW__
+    // Initialize 16-bit and 8-bit data
+    int16_t src1_epi16[32], src2_epi16[32], dst_epi16[32];
+    int8_t src1_epi8[64], src2_epi8[64], dst_epi8[64];
+    
+    for (int i = 0; i < 32; i++) {
+        src1_epi16[i] = (rand() % 200) - 100;
+        src2_epi16[i] = (rand() % 200) - 100;
+    }
+    
+    for (int i = 0; i < 64; i++) {
+        src1_epi8[i] = rand() % 100;
+        src2_epi8[i] = rand() % 100;
+    }
+    
+    uint32_t sum_epi16 = test_blend_epi16(src1_epi16, src2_epi16, dst_epi16);
+    uint32_t sum_epi8 = test_blend_epi8(src1_epi8, src2_epi8, dst_epi8);
+    
+    printf("16-bit integer blend checksum: %u\n", sum_epi16);
+    printf("8-bit integer blend checksum: %u\n", sum_epi8);
+#endif
+    
+#ifdef __AVX512FP16__
+    // Initialize half-precision data
+    _Float16 src1_ph[32], src2_ph[32], dst_ph[32];
+    
+    for (int i = 0; i < 32; i++) {
+        src1_ph[i] = (_Float16)((float)rand() / RAND_MAX);
+        src2_ph[i] = (_Float16)((float)rand() / RAND_MAX);
+    }
+    
+    float sum_ph = test_blend_ph(src1_ph, src2_ph, dst_ph);
+    printf("Half-precision blend checksum: %f\n", sum_ph);
+#endif
+    
+    printf("All blend operations completed successfully.\n");
+    return 0;
+}

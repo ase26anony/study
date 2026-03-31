@@ -1,0 +1,1 @@
+For the default case (illegal partition type), you would need to directly test the internal function. Here's a separate test file that could be compiled with the GCC runtime library to test the function directly:

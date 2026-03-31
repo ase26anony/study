@@ -1,0 +1,1 @@
+   if (GET_CODE (x) == ZERO_EXTRACT || GET_CODE (x) == STRICT_LOW_PART)

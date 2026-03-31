@@ -1,0 +1,2 @@
+- `lvalue_p` checks if `exp` is an lvalue (something that has an address)
+- `xval` becomes `true` if `exp` is NOT an lvalue (i.e., it's an rvalue)

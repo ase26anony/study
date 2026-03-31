@@ -1,0 +1,17 @@
+// Could use designated initializers for clarity
+Edge* create_edge(Node* src, Node* dest, EdgeType t, DataType dt, 
+                  int latency, int distance) {
+  Edge* e = malloc(sizeof(Edge));
+  *e = (Edge){
+    .src = src,
+    .dest = dest,
+    .type = t,
+    .data_type = dt,
+    .latency = latency,
+    .distance = distance,
+    .next_in = NULL,
+    .next_out = NULL,
+    .in_scc = false
+  };
+  return e;
+}

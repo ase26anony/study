@@ -1,0 +1,52 @@
+{
+    "program_diversity": {
+        "gcc":{
+            "Csmith": 0.093,
+            "DST": 0.135,
+            "Creal": 0.184,
+            "Fuzz4All": 0.253,
+            "WhiteFox": 0.392,
+            "LegoFuzz": 0.277 
+        },
+        "llvm": {
+            "Csmith": 0.093,
+            "DST": 0.147,
+            "Creal": 0.184,
+            "Fuzz4All": 0.269,
+            "WhiteFox": 0.401,
+            "LegoFuzz": 0.277 
+        }
+    },
+    "target_covarage": {
+        "gcc":{
+            "iteration": 9585,
+            "seletion_file": 552,
+            "successful_file": 1379,
+            "non-target_file": 1603 
+        },
+        "llvm": {
+            "iteration": 9932,
+            "seletion_file": 619,
+            "successful_file": 1592,
+            "non-target_file": 1728
+        }
+    },
+    "compiler_option_improvement": {
+        "gcc":{
+            "Csmith": 1.31,
+            "DST": 1.43,
+            "Creal": 1.39,
+            "Fuzz4All": 1.40,
+            "WhiteFox": 1.69,
+            "LegoFuzz": 1.34 
+        },
+        "llvm": {
+            "Csmith": 1.03,
+            "DST": 1.09, 
+            "Creal": 1.15,
+            "Fuzz4All": 1.21,
+            "WhiteFox": 1.51,
+            "LegoFuzz": 1.32
+        }
+    }
+}

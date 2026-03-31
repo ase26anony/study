@@ -1,0 +1,3 @@
+- Checks if `exp` is **not** an lvalue (xvalue = rvalue)
+- `lvalue_p()` returns true if the expression is an lvalue
+- `xval` will be true if `exp` is an rvalue (xvalue)

@@ -1,0 +1,1 @@
+## **Makefile** - Alternative structured approach

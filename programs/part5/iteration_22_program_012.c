@@ -1,0 +1,1 @@
+~(a & ~b)  // Simplified example

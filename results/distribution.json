@@ -1,0 +1,366 @@
+{
+    "gcc": {
+      "parser.cc": {
+        "total_lines": 21858,
+        "avg_coverage": 67.35,
+        "coverage_by_technique": {
+          "Csmith": 43.38,
+          "DST": 47.42,
+          "Creal": 52.58,
+          "Fuzz4All": 59.16,
+          "WhiteFox": 83.27,
+          "LegoFuzz": 70.66
+        }
+      },
+      "pt.cc": {
+        "total_lines": 14379,
+        "avg_coverage": 74.23,
+        "coverage_by_technique": {
+          "Csmith": 66.86,
+          "DST": 69.47,
+          "Creal": 71.05,
+          "Fuzz4All": 74.33,
+          "WhiteFox": 79.59,
+          "LegoFuzz": 84.08
+        }
+      },
+      "dwarf2out.cc": {
+        "total_lines": 14389,
+        "avg_coverage": 66.28,
+        "coverage_by_technique": {
+          "Csmith": 59.09,
+          "DST": 59.99,
+          "Creal": 65.12,
+          "Fuzz4All": 66.38,
+          "WhiteFox": 74.15,
+          "LegoFuzz": 72.93
+        }
+      },
+      "i386.cc": {
+        "total_lines": 12163,
+        "avg_coverage": 57.32,
+        "coverage_by_technique": {
+          "Csmith": 49.08,
+          "DST": 51.27,
+          "Creal": 54.36,
+          "Fuzz4All": 58.29,
+          "WhiteFox": 64.41,
+          "LegoFuzz": 66.5
+        }
+      },
+      "fold-const.cc": {
+        "total_lines": 8781,
+        "avg_coverage": 72.11,
+        "coverage_by_technique": {
+          "Csmith": 67.45,
+          "DST": 68.38,
+          "Creal": 72.04,
+          "Fuzz4All": 70.63,
+          "WhiteFox": 77.29,
+          "LegoFuzz": 76.86
+        }
+      },
+      "gimple-range.cc": {
+        "total_lines": 506,
+        "avg_coverage": 45.15,
+        "coverage_by_technique": {
+          "Csmith": 38.02,
+          "DST": 39.05,
+          "Creal": 39.99,
+          "Fuzz4All": 41.27,
+          "WhiteFox": 59.28,
+          "LegoFuzz": 53.27
+        }
+      },
+      "c-ppoutput.cc": {
+        "total_lines": 395,
+        "avg_coverage": 57.72,
+        "coverage_by_technique": {
+          "Csmith": 40.25,
+          "DST": 45.31,
+          "Creal": 53.36,
+          "Fuzz4All": 58.29,
+          "WhiteFox": 72.64,
+          "LegoFuzz": 76.5
+        }
+      },
+      "vec.cc": {
+        "total_lines": 299,
+        "avg_coverage": 58.31,
+        "coverage_by_technique": {
+          "Csmith": 48.26,
+          "DST": 48.26,
+          "Creal": 48.26,
+          "Fuzz4All": 60.44,
+          "WhiteFox": 73.29,
+          "LegoFuzz": 71.37
+        }
+      },
+      "hash-map-tests.cc": {
+        "total_lines": 226,
+        "avg_coverage": 91.67,
+        "coverage_by_technique": {
+          "Csmith": 75.0,
+          "DST": 75.0,
+          "Creal": 100.0,
+          "Fuzz4All": 100.0,
+          "WhiteFox": 100.0,
+          "LegoFuzz": 100.0
+        }
+      },
+      "ipa-visibility.cc": {
+        "total_lines": 442,
+        "avg_coverage": 30.45,
+        "coverage_by_technique": {
+          "Csmith": 15.69,
+          "DST": 19.28,
+          "Creal": 24.57,
+          "Fuzz4All": 29.15,
+          "WhiteFox": 46.0,
+          "LegoFuzz": 48.03
+        }
+      },
+      "sel-sched.cc": {
+        "total_lines": 2937,
+        "avg_coverage": 11.22,
+        "coverage_by_technique": {
+          "Csmith": 0.0,
+          "DST": 0.0,
+          "Creal": 7.97,
+          "Fuzz4All": 10.36,
+          "WhiteFox": 25.72,
+          "LegoFuzz": 23.28
+        }
+      },
+      "driver-i386.cc": {
+        "total_lines": 557,
+        "avg_coverage": 3.55,
+        "coverage_by_technique": {
+          "Csmith": 0.0,
+          "DST": 0.0,
+          "Creal": 0.0,
+          "Fuzz4All": 4.58,
+          "WhiteFox": 10.25,
+          "LegoFuzz": 6.44
+        }
+      },
+      "data-streamer-out.cc": {
+        "total_lines": 213,
+        "avg_coverage": 0.0,
+        "coverage_by_technique": {
+          "Csmith": 0.0,
+          "DST": 0.0,
+          "Creal": 0.0,
+          "Fuzz4All": 0.0,
+          "WhiteFox": 0.0,
+          "LegoFuzz": 0.0
+        }
+      },
+      "tree-logical-location.cc": {
+        "total_lines": 48,
+        "avg_coverage": 0.0,
+        "coverage_by_technique": {
+          "Csmith": 0.0,
+          "DST": 0.0,
+          "Creal": 0.0,
+          "Fuzz4All": 0.0,
+          "WhiteFox": 0.0,
+          "LegoFuzz": 0.0
+        }
+      },
+      "streamer-hooks.cc": {
+        "total_lines": 3,
+        "avg_coverage": 0.0,
+        "coverage_by_technique": {
+          "Csmith": 0.0,
+          "DST": 0.0,
+          "Creal": 0.0,
+          "Fuzz4All": 0.0,
+          "WhiteFox": 0.0,
+          "LegoFuzz": 0.0
+        }
+      }
+    },
+    "llvm": {
+      "DAGCombiner.cpp": {
+        "total_lines": 17071,
+        "avg_coverage": 74.28,
+        "coverage_by_technique": {
+          "Csmith": 63.29,
+          "DST": 70.88,
+          "Creal": 74.23,
+          "Fuzz4All": 76.82,
+          "WhiteFox": 80.55,
+          "LegoFuzz": 79.94
+        }
+      },
+      "SLPVectorizer.cpp": {
+        "total_lines": 12664,
+        "avg_coverage": 71.05,
+        "coverage_by_technique": {
+          "Csmith": 63.17,
+          "DST": 63.29,
+          "Creal": 65.44,
+          "Fuzz4All": 69.85,
+          "WhiteFox": 80.85,
+          "LegoFuzz": 83.79
+        }
+      },
+      "ScalarEvolution.cpp": {
+        "total_lines": 8341,
+        "avg_coverage": 77.86,
+        "coverage_by_technique": {
+          "Csmith": 70.59,
+          "DST": 74.22,
+          "Creal": 76.88,
+          "Fuzz4All": 78.15,
+          "WhiteFox": 87.17,
+          "LegoFuzz": 80.15
+        }
+      },
+      "SelectionDAG.cpp": {
+        "total_lines": 7971,
+        "avg_coverage": 72.63,
+        "coverage_by_technique": {
+          "Csmith": 68.21,
+          "DST": 72.9,
+          "Creal": 73.45,
+          "Fuzz4All": 73.05,
+          "WhiteFox": 74.54,
+          "LegoFuzz": 73.63
+        }
+      },
+      "SelectionDAGBuilder.cpp": {
+        "total_lines": 7174,
+        "avg_coverage": 76.27,
+        "coverage_by_technique": {
+          "Csmith": 69.2,
+          "DST": 72.88,
+          "Creal": 74.66,
+          "Fuzz4All": 75.4,
+          "WhiteFox": 84.93,
+          "LegoFuzz": 80.55
+        }
+      },
+      "CaptureTracking.cpp": {
+        "total_lines": 197,
+        "avg_coverage": 62.37,
+        "coverage_by_technique": {
+          "Csmith": 38.26,
+          "DST": 48.83,
+          "Creal": 53.94,
+          "Fuzz4All": 70.81,
+          "WhiteFox": 78.28,
+          "LegoFuzz": 84.05
+        }
+      },
+      "LegalizerInfo.cpp": {
+        "total_lines": 239,
+        "avg_coverage": 50.55,
+        "coverage_by_technique": {
+          "Csmith": 29.02,
+          "DST": 45.31,
+          "Creal": 53.36,
+          "Fuzz4All": 58.29,
+          "WhiteFox": 68.34,
+          "LegoFuzz": 62.96
+        }
+      },
+      "SCCP.cpp": {
+        "total_lines": 194,
+        "avg_coverage": 52.86,
+        "coverage_by_technique": {
+          "Csmith": 40.53,
+          "DST": 45.39,
+          "Creal": 45.39,
+          "Fuzz4All": 50.41,
+          "WhiteFox": 70.69,
+          "LegoFuzz": 65.48
+        }
+      },
+      "VNCoercion.cpp": {
+        "total_lines": 210,
+        "avg_coverage": 44.69,
+        "coverage_by_technique": {
+          "Csmith": 28.78,
+          "DST": 29.5,
+          "Creal": 48.66,
+          "Fuzz4All": 36.91,
+          "WhiteFox": 58.59,
+          "LegoFuzz": 65.75
+        }
+      },
+      "VPlanHCFGBuilder.cpp": {
+        "total_lines": 194,
+        "avg_coverage": 43.57,
+        "coverage_by_technique": {
+          "Csmith": 33.92,
+          "DST": 33.92,
+          "Creal": 39.14,
+          "Fuzz4All": 33.92,
+          "WhiteFox": 66.55,
+          "LegoFuzz": 53.97
+        }
+      },
+      "SelectionDAGTargetInfo.cpp": {
+        "total_lines": 3,
+        "avg_coverage": 2.22,
+        "coverage_by_technique": {
+          "Csmith": 0.0,
+          "DST": 0.0,
+          "Creal": 0.0,
+          "Fuzz4All": 0.0,
+          "WhiteFox": 6.67,
+          "LegoFuzz": 6.67
+        }
+      },
+      "InstCount.cpp": {
+        "total_lines": 6,
+        "avg_coverage": 0.0,
+        "coverage_by_technique": {
+          "Csmith": 0.0,
+          "DST": 0.0,
+          "Creal": 0.0,
+          "Fuzz4All": 0.0,
+          "WhiteFox": 0.0,
+          "LegoFuzz": 0.0
+        }
+      },
+      "ResourcePriorityQueue.cpp": {
+        "total_lines": 313,
+        "avg_coverage": 0.0,
+        "coverage_by_technique": {
+          "Csmith": 0.0,
+          "DST": 0.0,
+          "Creal": 0.0,
+          "Fuzz4All": 0.0,
+          "WhiteFox": 0.0,
+          "LegoFuzz": 0.0
+        }
+      },
+      "ScheduleDAGVLIW.cpp": {
+        "total_lines": 104,
+        "avg_coverage": 0.0,
+        "coverage_by_technique": {
+          "Csmith": 0.0,
+          "DST": 0.0,
+          "Creal": 0.0,
+          "Fuzz4All": 0.0,
+          "WhiteFox": 0.0,
+          "LegoFuzz": 0.0
+        }
+      },
+      "SelectionDAGPrinter.cpp": {
+        "total_lines": 128,
+        "avg_coverage": 0.0,
+        "coverage_by_technique": {
+          "Csmith": 0.0,
+          "DST": 0.0,
+          "Creal": 0.0,
+          "Fuzz4All": 0.0,
+          "WhiteFox": 0.0,
+          "LegoFuzz": 0.0
+        }
+      }
+    }
+  }

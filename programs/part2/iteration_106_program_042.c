@@ -1,0 +1,2 @@
+- Checks if `exp` is **not** an lvalue (so it's an xvalue or prvalue)
+- `xval` will be `true` if `exp` is an rvalue (xvalue or prvalue)

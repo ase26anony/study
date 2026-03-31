@@ -1,0 +1,1 @@
+   LAST_VIRTUAL_REGISTER + 1 + GET_MODE(*loc)

@@ -1,0 +1,3 @@
+x_1 = phi(0, 1)  // from some merge point
+...
+if (x_1 == 0)  // or if (x_1 == 1)

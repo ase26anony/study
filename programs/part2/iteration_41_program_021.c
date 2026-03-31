@@ -1,0 +1,9 @@
+Device (e.g., GPU)
+├── Team 1
+│   ├── Thread 1.1 → processes chunk of j-loop with SIMD vectorization
+│   ├── Thread 1.2 → processes chunk of j-loop with SIMD vectorization
+│   └── ...
+├── Team 2
+│   ├── Thread 2.1 → processes chunk of j-loop with SIMD vectorization
+│   └── ...
+└── ...

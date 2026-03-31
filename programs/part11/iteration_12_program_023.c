@@ -1,0 +1,22 @@
+/* main.c - Main program that calls helper functions */
+#include <stdio.h>
+
+/* External declarations */
+extern int helper_function(void);
+extern int asm_helper(void);
+extern void trigger_error(void);
+
+int main(void) {
+    printf("Main program starting\n");
+    
+    int result1 = helper_function();
+    printf("Helper function returned: %d\n", result1);
+    
+    int result2 = asm_helper();
+    printf("Assembly helper returned: %d\n", result2);
+    
+    /* This will cause a link error if error.c is included */
+    /* trigger_error(); */
+    
+    return 0;
+}

@@ -1,0 +1,11 @@
+   is_cpp_driver = 0;                 // Not the C++ compiler driver
+   at_file_supplied = 0;              // No @file with arguments provided
+   print_help_list = 0;               // Don't print help
+   print_version = 0;                 // Don't print version info
+   verbose_only_flag = 0;             // Not verbose mode
+   print_subprocess_help = 0;         // Don't print subprocess help
+   target_system_root_changed = 0;    // Target system root not changed
+   target_sysroot_suffix = 0;         // No sysroot suffix
+   target_sysroot_hdrs_suffix = 0;    // No sysroot headers suffix
+   save_temps_overrides_dumpdir = false;  // Dumpdir not overridden by save-temps
+   dumpdir_trailing_dash_added = false;   // No trailing dash in dumpdir

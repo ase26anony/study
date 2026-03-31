@@ -1,0 +1,154 @@
+/* test_11_operand_rtl.c */
+#include <stdio.h>
+#include <stdint.h>
+#include <string.h>
+
+/* Global volatile sink to prevent optimization */
+volatile uint64_t sink = 0;
+
+/* Test 1: Inline assembly with exactly 11 operands */
+void test_multi_operand_asm(void) {
+    uint64_t o0, o1, o2, o3, o4;
+    uint64_t i0 = 1, i1 = 2, i2 = 3, i3 = 4, i4 = 5, i5 = 6, i6 = 7;
+    
+    /* 
+     * 11 operands total:
+     * - 5 outputs (o0-o4)
+     * - 7 inputs (i0-i6)
+     * Total: 12 operands in constraints (11 value operands + clobber)
+     * Actually we need exactly 11 value operands, so adjust:
+     * 4 outputs + 7 inputs = 11 value operands
+     */
+    uint64_t o0_, o1_, o2_, o3_;
+    
+    asm volatile (
+        "# 11-operand asm\n\t"
+        "add %0, %4, %5\n\t"
+        "add %1, %6, %7\n\t"
+        "add %2, %8, %9\n\t"
+        "add %3, %10, %11"
+        : "=r"(o0_), "=r"(o1_), "=r"(o2_), "=r"(o3_)
+        : "r"(i0), "r"(i1), "r"(i2), "r"(i3),
+          "r"(i4), "r"(i5), "r"(i6), "r"(i0)  /* i0 reused as 11th operand */
+        : "cc"
+    );
+    
+    sink += o0_ + o1_ + o2_ + o3_;
+}
+
+/* Test 2: Atomic operations on 128-bit values */
+#ifdef __SIZEOF_INT128__
+void test_large_atomic_cmpxchg(void) {
+    typedef __int128 int128_t;
+    _Atomic int128_t large_atomic = 0;
+    int128_t old_val = 0;
+    int128_t new_val = ((int128_t)0x123456789ABCDEF0ULL << 64) | 0xFEDCBA9876543210ULL;
+    int128_t expected = 0;
+    int success;
+    
+    /* __atomic_compare_exchange_n expands to complex RTL with many operands */
+    for (int i = 0; i < 100; i++) {
+        success = __atomic_compare_exchange_n(&large_atomic, &expected, 
+                                             new_val, 0, 
+                                             __ATOMIC_SEQ_CST, __ATOMIC_SEQ_CST);
+        if (success) {
+            sink += ((uint64_t*)&new_val)[0];
+        }
+        expected = new_val;
+        new_val += 1;
+    }
+}
+#endif
+
+/* Test 3: Vector operations with complex shuffles */
+void test_vector_shuffle(void) {
+    /* 256-bit vector (8 ints) */
+    typedef int v8si __attribute__((vector_size(32)));
+    v8si a = {1, 2, 3, 4, 5, 6, 7, 8};
+    v8si b = {9, 10, 11, 12, 13, 14, 15, 16};
+    v8si mask = {7, 6, 5, 4, 3, 2, 1, 0};
+    
+    /* Complex shuffle that may generate many RTL operands */
+    v8si result = __builtin_shuffle(a, b, mask);
+    
+    /* Use result to prevent elimination */
+    for (int i = 0; i < 8; i++) {
+        sink += result[i];
+    }
+}
+
+/* Test 4: Multiple output constraints with early clobber */
+void test_multi_output_asm(void) {
+    uint64_t in1 = 0x1111111111111111ULL;
+    uint64_t in2 = 0x2222222222222222ULL;
+    uint64_t in3 = 0x3333333333333333ULL;
+    uint64_t in4 = 0x4444444444444444ULL;
+    uint64_t in5 = 0x5555555555555555ULL;
+    uint64_t in6 = 0x6666666666666666ULL;
+    uint64_t out1, out2, out3, out4, out5;
+    
+    /* 
+     * 11 operands: 5 outputs + 6 inputs
+     * Using early-clobber (&) to force separate registers
+     */
+    asm volatile (
+        "# Multi-output with early clobber\n\t"
+        "mov %0, %5\n\t"
+        "add %1, %5, %6\n\t"
+        "add %2, %6, %7\n\t"
+        "add %3, %7, %8\n\t"
+        "add %4, %8, %9"
+        : "=&r"(out1), "=&r"(out2), "=&r"(out3), "=&r"(out4), "=&r"(out5)
+        : "r"(in1), "r"(in2), "r"(in3), "r"(in4), "r"(in5), "r"(in6)
+        : "cc"
+    );
+    
+    sink += out1 + out2 + out3 + out4 + out5;
+}
+
+/* Test 5: Builtin with many arguments */
+void test_many_arg_builtin(void) {
+    /* __builtin_cpu_supports with many features checked */
+    int features = 0;
+    
+    /* Each string argument becomes an operand during expansion */
+    features += __builtin_cpu_supports("avx2");
+    features += __builtin_cpu_supports("avx");
+    features += __builtin_cpu_supports("sse4.2");
+    features += __builtin_cpu_supports("sse4.1");
+    features += __builtin_cpu_supports("ssse3");
+    features += __builtin_cpu_supports("sse3");
+    features += __builtin_cpu_supports("sse2");
+    features += __builtin_cpu_supports("sse");
+    features += __builtin_cpu_supports("mmx");
+    
+    sink += features;
+}
+
+int main(void) {
+    printf("Testing 11-operand RTL generation...\n");
+    
+    /* Run each test multiple times to increase coverage probability */
+    for (int i = 0; i < 10000; i++) {
+        test_multi_operand_asm();
+        test_multi_output_asm();
+        test_vector_shuffle();
+        test_many_arg_builtin();
+        
+#ifdef __SIZEOF_INT128__
+        if (i % 1000 == 0) {
+            test_large_atomic_cmpxchg();
+        }
+#endif
+        
+        /* Prevent loop unrolling from simplifying things */
+        if (i % 7 == 0) {
+            sink = sink * 1103515245 + 12345;
+        }
+    }
+    
+    printf("Final sink value: %lu\n", (unsigned long)sink);
+    printf("Test completed.\n");
+    
+    return 0;
+}

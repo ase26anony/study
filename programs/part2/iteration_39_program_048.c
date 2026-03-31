@@ -1,0 +1,46 @@
+/* test.c - Simple program to generate coverage data */
+#include <stdio.h>
+#include <stdlib.h>
+
+void func1(int x) {
+    printf("func1: %d\n", x);
+    if (x > 0) {
+        printf("Positive\n");
+    } else {
+        printf("Non-positive\n");
+    }
+}
+
+void func2(int x, int y) {
+    printf("func2: %d, %d\n", x, y);
+    if (x > y) {
+        printf("x > y\n");
+    } else if (x < y) {
+        printf("x < y\n");
+    } else {
+        printf("x == y\n");
+    }
+}
+
+int main(int argc, char *argv[]) {
+    int a = 0, b = 0;
+    
+    if (argc > 1) {
+        a = atoi(argv[1]);
+    }
+    if (argc > 2) {
+        b = atoi(argv[2]);
+    }
+    
+    func1(a);
+    func2(a, b);
+    
+    // Additional branch for more coverage
+    if (a > 100) {
+        printf("Large value\n");
+    } else if (a < -100) {
+        printf("Small value\n");
+    }
+    
+    return 0;
+}

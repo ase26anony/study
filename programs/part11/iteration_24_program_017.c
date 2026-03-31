@@ -1,0 +1,17 @@
+/* Simple test program to generate coverage data files */
+int main() {
+    int x = 0;
+    
+    /* Some basic code to generate coverage data */
+    for (int i = 0; i < 10; i++) {
+        x += i;
+    }
+    
+    if (x > 0) {
+        x = x * 2;
+    } else {
+        x = 0;
+    }
+    
+    return x > 0 ? 0 : 1;
+}

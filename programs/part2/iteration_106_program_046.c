@@ -1,0 +1,3 @@
+- Checks if `exp` is **not** an lvalue
+- `lvalue_p()` returns true if the expression is an lvalue (has an address)
+- `xval` will be true if `exp` is an rvalue (temporary, literal, etc.)

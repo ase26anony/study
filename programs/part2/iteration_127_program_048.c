@@ -1,0 +1,3 @@
+... → prev → insn → X → ...
+         ↑       ↑
+         └───────┘ (connected)

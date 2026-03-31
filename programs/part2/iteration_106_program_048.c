@@ -1,0 +1,3 @@
+- **Purpose**: Checks if `exp` is **not** an lvalue (i.e., it's an xvalue or prvalue)
+- `lvalue_p()`: Function that returns true if the expression is an lvalue
+- `xval`: Will be true if `exp` is NOT an lvalue (xvalue or prvalue)

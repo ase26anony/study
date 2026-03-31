@@ -1,0 +1,3 @@
+- Checks if `exp` is **not** an lvalue (xvalue = rvalue)
+- `lvalue_p()` likely returns true for lvalues, false for rvalues
+- `xval` will be true for rvalues (xvalues), false for lvalues

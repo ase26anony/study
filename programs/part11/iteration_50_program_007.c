@@ -1,0 +1,6 @@
+Gang 0 (i=0) → Worker 0 → Vector lanes
+                Worker 1 → Vector lanes
+                ...
+Gang 1 (i=1) → Worker 0 → Vector lanes
+                Worker 1 → Vector lanes
+                ...

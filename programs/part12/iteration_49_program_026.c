@@ -1,0 +1,23 @@
+/* Simple test program for gcov-dump testing */
+#include <stdio.h>
+
+int helper(int x) {
+    if (x > 0) {
+        return x * 2;
+    } else {
+        return x - 1;
+    }
+}
+
+int main() {
+    int i;
+    printf("Test program for gcov-dump\n");
+    
+    /* Generate some coverage data */
+    for (i = -2; i <= 2; i++) {
+        int result = helper(i);
+        printf("helper(%d) = %d\n", i, result);
+    }
+    
+    return 0;
+}

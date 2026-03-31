@@ -1,0 +1,30 @@
+#ifndef TLS_COMMON_H
+#define TLS_COMMON_H
+
+#ifdef _WIN32
+    #define DLL_IMPORT __declspec(dllimport)
+    #define DLL_EXPORT __declspec(dllexport)
+#else
+    #define DLL_IMPORT
+    #define DLL_EXPORT __attribute__((visibility("default")))
+#endif
+
+/* External TLS variable declared in header, defined in helper1.c */
+extern __thread int extern_tls;
+
+/* Weak TLS variable */
+extern __thread int weak_tls_var __attribute__((weak));
+
+/* Common TLS variable with multiple definitions */
+extern __thread int common_tls;
+
+/* Function declarations */
+void helper1_func(void);
+void helper2_func(void);
+int get_static_tls_value(void);
+void modify_static_tls(int value);
+
+/* DLL import/export test */
+DLL_IMPORT extern __thread int dll_tls_var;
+
+#endif /* TLS_COMMON_H */

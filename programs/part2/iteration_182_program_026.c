@@ -1,0 +1,156 @@
+/* test_gcc_driver_cleanup.c
+ * This test triggers the GCC driver's cleanup routine with various
+ * state variables initialized, ensuring coverage of the reset/free operations.
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+
+#define SIMPLE_C_CONTENT "int main(void) { return 0; }\n"
+#define ERROR_C_CONTENT "int main(void) { return undefined_var; }\n"
+
+/* Create a simple C source file */
+static int create_source_file(const char *filename, const char *content) {
+    FILE *f = fopen(filename, "w");
+    if (!f) {
+        perror("fopen");
+        return 0;
+    }
+    fputs(content, f);
+    fclose(f);
+    return 1;
+}
+
+/* Remove a file if it exists */
+static void remove_file(const char *filename) {
+    if (access(filename, F_OK) == 0) {
+        unlink(filename);
+    }
+}
+
+/* Remove a directory and its contents */
+static void remove_directory(const char *dirname) {
+    char cmd[256];
+    snprintf(cmd, sizeof(cmd), "rm -rf %s", dirname);
+    system(cmd);
+}
+
+/* Execute a GCC command and return its exit status */
+static int run_gcc_command(const char *cmd) {
+    printf("Executing: %s\n", cmd);
+    int status = system(cmd);
+    if (status == -1) {
+        perror("system");
+        return -1;
+    }
+    return WEXITSTATUS(status);
+}
+
+int main(void) {
+    int overall_result = 0;
+    
+    /* Create directories for test artifacts */
+    mkdir("test_artifacts", 0755);
+    mkdir("fail_artifacts", 0755);
+    
+    /* Create simple valid C source file */
+    if (!create_source_file("simple.c", SIMPLE_C_CONTENT)) {
+        fprintf(stderr, "Failed to create simple.c\n");
+        return 1;
+    }
+    
+    /* Create C source file with compilation error */
+    if (!create_source_file("error.c", ERROR_C_CONTENT)) {
+        fprintf(stderr, "Failed to create error.c\n");
+        return 1;
+    }
+    
+    printf("=== GCC Driver Cleanup Coverage Test ===\n\n");
+    
+    /* INVOCATION A: Sets state with -save-temps, -dumpdir, -dumpbase, -o, and succeeds */
+    printf("1. Testing successful compilation with state variables set:\n");
+    const char *cmd_a = "gcc -save-temps -dumpdir ./test_artifacts "
+                        "-dumpbase coverage_test -o test_output.o -c simple.c";
+    int status_a = run_gcc_command(cmd_a);
+    printf("Exit status: %d\n\n", status_a);
+    
+    /* INVOCATION B: Sets state but fails with invalid architecture flag */
+    printf("2. Testing failed compilation with state variables set:\n");
+    const char *cmd_b = "gcc -save-temps -dumpdir ./fail_artifacts "
+                        "-dumpbase fail_test -o fail_output.o "
+                        "-march=invalid-arch simple.c 2>/dev/null";
+    int status_b = run_gcc_command(cmd_b);
+    printf("Exit status: %d\n\n", status_b);
+    
+    /* INVOCATION C: Uses -specs and -V to influence spec_machine and print_version */
+    printf("3. Testing with -specs and -V flags:\n");
+    const char *cmd_c = "gcc -specs=nosuch.spec -V simple.c 2>&1 | head -5";
+    int status_c = run_gcc_command(cmd_c);
+    printf("Exit status: %d\n\n", status_c);
+    
+    /* INVOCATION D: Tests -Werror turning warnings into errors */
+    printf("4. Testing -Werror with unused variable:\n");
+    const char *cmd_d = "echo 'int main(void) { int unused; return 0; }' | "
+                        "gcc -save-temps -dumpdir ./test_artifarts "
+                        "-dumpbase werror_test -x c -Werror - -o /dev/null 2>&1";
+    int status_d = run_gcc_command(cmd_d);
+    printf("Exit status: %d\n\n", status_d);
+    
+    /* INVOCATION E: Tests multiple output-related flags together */
+    printf("5. Testing multiple output flags with compilation error:\n");
+    const char *cmd_e = "gcc -save-temps=obj -dumpdir ./test_artifacts "
+                        "-dumpbase multi_test -dumpbase-ext .ext "
+                        "-o multi_output.o error.c 2>/dev/null";
+    int status_e = run_gcc_command(cmd_e);
+    printf("Exit status: %d\n\n", status_e);
+    
+    /* INVOCATION F: Tests verbose output flag */
+    printf("6. Testing verbose flag:\n");
+    const char *cmd_f = "gcc -v -save-temps -dumpdir ./verbose_artifacts "
+                        "-o verbose_output.o -c simple.c 2>&1 | tail -3";
+    int status_f = run_gcc_command(cmd_f);
+    printf("Exit status: %d\n\n", status_f);
+    
+    /* INVOCATION G: Tests help-related flags */
+    printf("7. Testing help and version flags:\n");
+    const char *cmd_g = "gcc --help=common 2>&1 | head -3";
+    int status_g = run_gcc_command(cmd_g);
+    printf("Exit status: %d\n\n", status_g);
+    
+    /* Clean up generated files */
+    printf("Cleaning up test artifacts...\n");
+    
+    /* Remove source files */
+    remove_file("simple.c");
+    remove_file("error.c");
+    
+    /* Remove object and temporary files */
+    remove_file("test_output.o");
+    remove_file("fail_output.o");
+    remove_file("multi_output.o");
+    remove_file("verbose_output.o");
+    
+    /* Remove temporary files generated by -save-temps */
+    remove_file("simple.i");
+    remove_file("simple.s");
+    remove_file("coverage_test.i");
+    remove_file("coverage_test.s");
+    remove_file("multi_test.i");
+    remove_file("multi_test.s");
+    remove_file("multi_test.ext.i");
+    remove_file("multi_test.ext.s");
+    
+    /* Remove directories */
+    remove_directory("test_artifacts");
+    remove_directory("fail_artifacts");
+    remove_directory("verbose_artifacts");
+    
+    printf("\n=== Test completed ===\n");
+    printf("All GCC invocations attempted, driver cleanup should have been triggered.\n");
+    
+    return overall_result;
+}

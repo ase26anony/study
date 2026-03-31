@@ -1,0 +1,26 @@
+/* test_source.c - Simple program to generate gcov data */
+#include <stdio.h>
+
+void func1() {
+    printf("Function 1 called\n");
+}
+
+void func2() {
+    printf("Function 2 called\n");
+}
+
+int main() {
+    int i;
+    
+    printf("Test program for gcov-tool overlap testing\n");
+    
+    for (i = 0; i < 10; i++) {
+        func1();
+    }
+    
+    for (i = 0; i < 5; i++) {
+        func2();
+    }
+    
+    return 0;
+}

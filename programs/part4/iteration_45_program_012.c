@@ -1,0 +1,4 @@
+retry:
+    if (cond) {
+        // code
+    }

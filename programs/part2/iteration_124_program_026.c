@@ -1,0 +1,229 @@
+#include <stdio.h>
+#include <math.h>
+#include <stdint.h>
+
+// Global results array to prevent optimization
+volatile int results[32];
+volatile int idx = 0;
+
+// Function prototypes
+void test_unordered(void);
+void test_ordered(void);
+void test_uneq(void);
+void test_unge(void);
+void test_ungt(void);
+void test_unle(void);
+void test_unlt(void);
+void test_ltgt(void);
+
+int main(void) {
+    // Initialize with volatile to prevent constant folding
+    volatile double v1 = 1.0;
+    volatile double v2 = 0.0/0.0;  // NaN
+    volatile double v3 = 3.0;
+    volatile double v4 = 2.0;
+    volatile double v5 = -1.0;
+    
+    // Force compiler to keep these variables
+    (void)v1; (void)v2; (void)v3; (void)v4; (void)v5;
+    
+    // Run all tests
+    test_unordered();
+    test_ordered();
+    test_uneq();
+    test_unge();
+    test_ungt();
+    test_unle();
+    test_unlt();
+    test_ltgt();
+    
+    // Compute checksum to ensure execution
+    int checksum = 0;
+    for (int i = 0; i < idx; i++) {
+        checksum = (checksum * 31 + results[i]) & 0xFF;
+    }
+    
+    printf("Checksum: %d\n", checksum);
+    return checksum;
+}
+
+// Test UNORDERED condition (x != x when x is NaN)
+void test_unordered(void) {
+    volatile double nan_val = 0.0/0.0;
+    volatile double normal_val = 1.0;
+    
+    // UNORDERED: nan_val != nan_val should be true
+    if (nan_val != nan_val) {
+        results[idx++] = 1;  // UNORDERED true
+    } else {
+        results[idx++] = 0;
+    }
+    
+    // Also test with normal value (should be false)
+    if (normal_val != normal_val) {
+        results[idx++] = 1;
+    } else {
+        results[idx++] = 0;  // UNORDERED false
+    }
+}
+
+// Test ORDERED condition (x == x when x is not NaN)
+void test_ordered(void) {
+    volatile double nan_val = 0.0/0.0;
+    volatile double normal_val = 2.0;
+    
+    // ORDERED: normal_val == normal_val should be true
+    if (normal_val == normal_val) {
+        results[idx++] = 1;  // ORDERED true
+    } else {
+        results[idx++] = 0;
+    }
+    
+    // With NaN (should be false)
+    if (nan_val == nan_val) {
+        results[idx++] = 1;
+    } else {
+        results[idx++] = 0;  // ORDERED false
+    }
+}
+
+// Test UNEQ condition (== with possible NaN)
+void test_uneq(void) {
+    volatile double a = 1.0;
+    volatile double b = 1.0;
+    volatile double nan_val = 0.0/0.0;
+    
+    // UNEQ: a == b (both normal, equal)
+    if (a == b) {
+        results[idx++] = 1;  // UNEQ true
+    } else {
+        results[idx++] = 0;
+    }
+    
+    // UNEQ with NaN operand
+    if (a == nan_val) {
+        results[idx++] = 1;
+    } else {
+        results[idx++] = 0;  // UNEQ false (unordered)
+    }
+}
+
+// Test UNGE condition (>= with possible NaN)
+void test_unge(void) {
+    volatile double a = 2.0;
+    volatile double b = 1.0;
+    volatile double nan_val = 0.0/0.0;
+    
+    // UNGE: a >= b (normal values)
+    if (a >= b) {
+        results[idx++] = 1;  // UNGE true
+    } else {
+        results[idx++] = 0;
+    }
+    
+    // UNGE with NaN operand
+    if (a >= nan_val) {
+        results[idx++] = 1;
+    } else {
+        results[idx++] = 0;  // UNGE false (unordered)
+    }
+}
+
+// Test UNGT condition (> with possible NaN)
+void test_ungt(void) {
+    volatile double a = 3.0;
+    volatile double b = 2.0;
+    volatile double nan_val = 0.0/0.0;
+    
+    // UNGT: a > b (normal values)
+    if (a > b) {
+        results[idx++] = 1;  // UNGT true
+    } else {
+        results[idx++] = 0;
+    }
+    
+    // UNGT with NaN operand
+    if (a > nan_val) {
+        results[idx++] = 1;
+    } else {
+        results[idx++] = 0;  // UNGT false (unordered)
+    }
+}
+
+// Test UNLE condition (<= with possible NaN)
+void test_unle(void) {
+    volatile double a = 1.0;
+    volatile double b = 2.0;
+    volatile double nan_val = 0.0/0.0;
+    
+    // UNLE: a <= b (normal values)
+    if (a <= b) {
+        results[idx++] = 1;  // UNLE true
+    } else {
+        results[idx++] = 0;
+    }
+    
+    // UNLE with NaN operand
+    if (nan_val <= b) {
+        results[idx++] = 1;
+    } else {
+        results[idx++] = 0;  // UNLE false (unordered)
+    }
+}
+
+// Test UNLT condition (< with possible NaN)
+void test_unlt(void) {
+    volatile double a = 1.0;
+    volatile double b = 2.0;
+    volatile double nan_val = 0.0/0.0;
+    
+    // UNLT: a < b (normal values)
+    if (a < b) {
+        results[idx++] = 1;  // UNLT true
+    } else {
+        results[idx++] = 0;
+    }
+    
+    // UNLT with NaN operand
+    if (nan_val < b) {
+        results[idx++] = 1;
+    } else {
+        results[idx++] = 0;  // UNLT false (unordered)
+    }
+}
+
+// Test LTGT condition (not equal and ordered)
+void test_ltgt(void) {
+    volatile double a = 1.0;
+    volatile double b = 2.0;
+    volatile double c = 1.0;
+    volatile double nan_val = 0.0/0.0;
+    
+    // LTGT: a != b (both normal, not equal)
+    if (a != b) {
+        results[idx++] = 1;  // LTGT true
+    } else {
+        results[idx++] = 0;
+    }
+    
+    // LTGT: a != c (both normal, equal) - should be false
+    if (a != c) {
+        results[idx++] = 1;
+    } else {
+        results[idx++] = 0;  // LTGT false
+    }
+    
+    // LTGT with NaN operand (unordered, not LTGT)
+    if (a != nan_val) {
+        results[idx++] = 1;
+    } else {
+        results[idx++] = 0;
+    }
+    
+    // Use __builtin_islessgreater for explicit LTGT
+    if (__builtin_islessgreater(a, b)) {
+        results[idx++] = 1;  // LTGT true via builtin
+    } else {
+        results[idx++] = 0;
+    }
+}

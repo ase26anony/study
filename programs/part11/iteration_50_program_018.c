@@ -1,0 +1,6 @@
+Gang 0:   Worker 0: [vector lanes 0..V-1]
+          Worker 1: [vector lanes 0..V-1]
+          ...
+Gang 1:   Worker 0: [vector lanes 0..V-1]
+          Worker 1: [vector lanes 0..V-1]
+          ...

@@ -1,0 +1,9 @@
+is_cpp_driver = 0;                    // Flag indicating if this is a C++ driver
+at_file_supplied = 0;                 // Whether an @file (response file) was provided
+print_help_list = 0;                  // Flag to print help list
+print_version = 0;                    // Flag to print version information
+verbose_only_flag = 0;                // Verbose output flag
+print_subprocess_help = 0;            // Flag to print subprocess help
+target_system_root_changed = 0;       // Whether target system root was modified
+save_temps_overrides_dumpdir = false; // Whether save-temps overrides dump directory
+dumpdir_trailing_dash_added = false;  // Whether trailing dash was added to dumpdir

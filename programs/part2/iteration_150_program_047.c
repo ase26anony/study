@@ -1,0 +1,5 @@
+struct fixup_graph fg;
+fg.num_edges = m;
+fg.edge_list = malloc(m * sizeof(struct edge));
+// ... use it ...
+free(fg.edge_list);

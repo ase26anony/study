@@ -1,0 +1,3 @@
+struct fixup_graph *fg = create_fixup_graph(cfg);
+// ... build graph, solve min-cost flow ...
+apply_fixup_solution(fg, cfg);

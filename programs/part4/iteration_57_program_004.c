@@ -1,0 +1,1 @@
+case OMP_ARRAY_SECTION:

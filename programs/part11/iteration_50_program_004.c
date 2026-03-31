@@ -1,0 +1,7 @@
+Gang 0        Gang 1        ...        Gang N-1
+├─ Worker 0   ├─ Worker 0              ├─ Worker 0
+│  ├─ Vector 0│  ├─ Vector 0           │  ├─ Vector 0
+│  ├─ Vector 1│  ├─ Vector 1           │  ├─ Vector 1
+│  └─ ...     │  └─ ...                │  └─ ...
+├─ Worker 1   ├─ Worker 1              ├─ Worker 1
+└─ ...        └─ ...                   └─ ...

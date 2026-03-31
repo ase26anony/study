@@ -1,0 +1,9 @@
+Device (GPU/Accelerator)
+├── Team 0: j = 0..k
+│   ├── Thread 0: SIMD vector of i values
+│   ├── Thread 1: SIMD vector of i values
+│   └── ...
+├── Team 1: j = k+1..m
+│   ├── Thread 0: SIMD vector of i values
+│   └── ...
+└── ...

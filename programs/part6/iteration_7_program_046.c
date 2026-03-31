@@ -1,0 +1,8 @@
+int a, b, c;
+int original_a = a;  // Store original if needed
+if (a > 0) {
+    b = 10;
+} else {
+    b = 20;
+}
+a = 5;  // Update after the condition if needed

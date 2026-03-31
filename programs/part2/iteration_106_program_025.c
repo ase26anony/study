@@ -1,0 +1,2 @@
+- Checks if `exp` is **not** an lvalue (returns true if it's an rvalue)
+- `xval` means "xvalue" - a kind of rvalue that can be moved from

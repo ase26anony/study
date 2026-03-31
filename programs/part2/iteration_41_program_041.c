@@ -1,0 +1,9 @@
+Device (e.g., GPU)
+├── Team 0
+│   ├── Thread 0: j = 0..k, i = 0..15 (vectorized)
+│   ├── Thread 1: j = 0..k, i = 16..31
+│   └── ...
+├── Team 1
+│   ├── Thread 0: j = k+1..m, i = 0..15
+│   └── ...
+└── ...

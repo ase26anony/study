@@ -1,0 +1,1 @@
+For environments where you need a C program wrapper instead of a shell script (e.g., when testing embedded systems or restricted environments), here's an alternative C program that uses `system()` calls:
